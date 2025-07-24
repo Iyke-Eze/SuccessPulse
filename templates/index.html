@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SuccessPulse</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to bottom right, #e3f2fd, #ffffff);
+            color: #333;
+            text-align: center;
+            padding: 40px;
+        }
+        h2 {
+            color: #0078D4;
+            font-size: 28px;
+        }
+        .description, .instructions {
+            max-width: 700px;
+            margin: 20px auto;
+            padding: 15px;
+            border-radius: 10px;
+            background-color: #ffffffd0;
+            box-shadow: 0 0 8px rgba(0,0,0,0.08);
+        }
+        .instructions {
+            background-color: #fff8e1;
+            border-left: 6px solid #ffc107;
+            font-size: 14px;
+            text-align: left;
+        }
+        form {
+            background-color: white;
+            border-radius: 12px;
+            padding: 25px;
+            display: inline-block;
+            margin-top: 30px;
+            box-shadow: 0 0 12px rgba(0,0,0,0.12);
+            text-align: left;
+        }
+        input, select {
+            width: 300px;
+            padding: 10px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+        button {
+            padding: 12px 28px;
+            background-color: #0078D4;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .error {
+            color: red;
+            margin-bottom: 12px;
+            font-size: 14px;
+            display: none;
+        }
+    </style>
+    <script>
+        function validateForm() {
+            const amount = document.forms["scoreForm"]["amount"].value.trim();
+            const errorDiv = document.getElementById("amountError");
+            if (amount === "" || isNaN(amount)) {
+                errorDiv.style.display = "block";
+                return false;
+            }
+            errorDiv.style.display = "none";
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <h2>SuccessPulse – Predict New Product Success</h2>
+    <div class="description">
+        Upload your product dataset, then enter a new product idea. SuccessPulse will analyze patterns and estimate the success potential using clustering.
+    </div>
+
+    <div class="instructions">
+        <strong>📋 CSV Format Guidelines:</strong><br><br>
+        <span style="color:#333"><strong>Required Columns:</strong></span><br>
+        <code>Item, Category, Purchase Amount, Gender</code><br><br>
+        <span style="color:#333"><strong>Optional Columns:</strong></span><br>
+        <code>Size, Color, Age, Discount Planned</code><br><br>
+        Column names must match exactly. Optional fields enhance accuracy but aren't mandatory.
+    </div>
+
+    <form name="scoreForm" action="/score" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+        <label><strong>Upload Dataset (CSV):</strong></label><br>
+        <input type="file" name="file" accept=".csv"><br><br>
+
+        <label><strong>Item:</strong></label><br>
+        <input type="text" name="item" required><br>
+
+        <label><strong>Category:</strong></label><br>
+        <input type="text" name="category" required><br>
+
+        <label><strong>Purchase Amount:</strong></label><br>
+        <input type="number" name="amount" step="0.01" required><br>
+        <div id="amountError" class="error">Please enter a valid numeric Purchase Amount.</div>
+
+        <label><strong>Size (optional):</strong></label><br>
+        <input type="text" name="size"><br>
+
+        <label><strong>Color (optional):</strong></label><br>
+        <input type="text" name="color"><br>
+
+        <label><strong>Age (optional):</strong></label><br>
+        <input type="number" name="age"><br>
+
+        <label><strong>Gender:</strong></label><br>
+        <select name="gender">
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Both">Both</option>
+        </select><br>
+
+        <label><strong>Discount Planned (optional):</strong></label><br>
+        <select name="discount">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select><br><br>
+
+        <button type="submit">Estimate Success</button>
+    </form>
+</body>
+</html>

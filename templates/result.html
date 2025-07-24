@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SuccessPulse Result</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to top left, #e3f2fd, #ffffff);
+            text-align: center;
+            margin-top: 60px;
+        }
+        .result-box {
+            background-color: white;
+            display: inline-block;
+            padding: 30px;
+            border-radius: 14px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #0078D4;
+        }
+        p {
+            font-size: 18px;
+            color: #444;
+            margin-top: 10px;
+        }
+        a {
+            margin-top: 24px;
+            padding: 10px 20px;
+            background-color: #0078D4;
+            color: white;
+            border-radius: 6px;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="result-box">
+        <h2>Success Prediction</h2>
+        <p><strong>Cluster Assigned:</strong> {{ cluster }}</p>
+        <p><strong>Estimated Success Rate:</strong> {{ score }}%</p>
+        <a href="/">Try Another Product</a>
+    </div>
+</body>
+</html>
